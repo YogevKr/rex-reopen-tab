@@ -71,11 +71,11 @@ flowchart LR
     E[session events]
     A[reopen_closed_tab action]
   end
-  T[tracker.lua<br/>LaunchAgent, rex do --all] -- reads --> E
-  T -- writes --> J[(closed-tabs.json)]
+  T["tracker.lua<br/>(LaunchAgent: rex do --all)"] -- reads --> E
+  T -- writes --> J[("closed-tabs.json")]
   A -- reads --> J
   A -- session.new_window --> server
-  P[pi extension] -- pid.json --> T
+  P[pi extension] -- "pid.json" --> T
 ```
 
 - **tracker.lua** runs as `rex do --all`. It keeps a copy of each session's layout and
