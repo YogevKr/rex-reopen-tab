@@ -67,15 +67,11 @@ The list keeps the last 20 closed tabs of each session.
 
 ```mermaid
 flowchart LR
-  subgraph server[Rex server]
-    E[session events]
-    A[reopen_closed_tab action]
-  end
-  T["tracker.lua<br/>(LaunchAgent: rex do --all)"] -- reads --> E
-  T -- writes --> J[("closed-tabs.json")]
-  A -- reads --> J
-  A -- session.new_window --> server
-  P[pi extension] -- "pid.json" --> T
+  T[tracker.lua] -->|reads events| R[Rex server]
+  T -->|writes| J[(closed-tabs.json)]
+  K[reopen_closed_tab action] -->|reads| J
+  K -->|session.new_window| R
+  P[pi extension] -->|pid.json| T
 ```
 
 - **tracker.lua** runs as `rex do --all`. It keeps a copy of each session's layout and
